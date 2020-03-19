@@ -6,6 +6,7 @@ const html = `
 <html>
 <body>
 <h1>Hello World</h1>
+<p><a href="/admin">Admin</a></p>
 </body>
 </html>`;
 

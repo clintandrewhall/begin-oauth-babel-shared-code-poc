@@ -6,7 +6,7 @@ const http = async req => ({
 <!doctype html>
 <html>
 <body>
-<p><a href="/graphql">GraphQL Console</a></p>
+<p><a href="/hello">Hello World</a></p>
 <form method=post action=/logout>
   <button>Logout</button>
 </form>
