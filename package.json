@@ -1,12 +1,47 @@
 {
-  "name": "begin-app",
+  "name": "begin-oauth-babel-shared-code-poc",
   "version": "0.0.0",
-  "description": "Begin basic Hello World! app for Node",
+  "description": "Let's explore shared code using the OAuth example, as a PoC",
+  "repository": "https://github.com/clintandrewhall/begin-oauth-babel-shared-code-poc",
+  "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=testing npx sandbox"
+    "lint": "eslint lib --ext ts --ignore-pattern node_modules --fix",
+    "clean": "rm -rf src && mkdir src",
+    "install": "node scripts/install",
+    "rollup": "npx rollup -c",
+    "build": "npm run clean && npm run install && npm run rollup",
+    "watch": "npm run rollup -- -w",
+    "start": "concurrently \"npm run watch\" \"npx sandbox\"",
+    "deploy": "npm run build && npx deploy"
   },
   "devDependencies": {
+    "@architect/architect": "latest",
     "@architect/sandbox": "latest",
-    "cross-env": "^6.0.3"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/node": "^13.9.2",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-root-import": "^5.1.0",
+    "bufferutil": "^4.0.1",
+    "concurrently": "^5.1.0",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.8.0",
+    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
+    "eslint-plugin-import": "^2.20.1",
+    "rollup": "^2.1.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "tslint": "^6.1.0",
+    "typescript": "^3.8.3",
+    "utf-8-validate": "^5.0.2"
+  },
+  "dependencies": {
+    "tiny-json-http": "^7.1.2"
   }
 }

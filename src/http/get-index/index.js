@@ -1,73 +1,43 @@
-// Add simple, fast, scalable persistence: https://docs.begin.com/en/data/begin-data/
-// let data = require('@begin/data')
+'use strict';
 
-// Add secure sessions, middleware, and more: https://docs.begin.com/en/functions/http/
-// let arc = require('@architect/functions')
+Object.defineProperty(exports, '__esModule', { value: true });
 
-// TODO: modify the body object!
-let body = `
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var arc = _interopDefault(require('@architect/functions'));
+require('tiny-json-http');
+
+const isAuth = req => {
+  return req.session && req.session.account;
+};
+
+const getAuthUrl = () => {
+  let client_id = process.env.GITHUB_CLIENT_ID;
+  let redirect_uri = process.env.GITHUB_REDIRECT;
+  let base = 'https://github.com/login/oauth/authorize';
+  return `${base}?client_id=${client_id}&redirect_uri=${redirect_uri}`;
+};
+
+const html = `
 <!doctype html>
-<html lang=en>
-  <head>
-    <meta charset=utf-8>
-    <title>Hi!</title>
-    <link rel="stylesheet" href="https://static.begin.app/starter/default.css">
-    <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" rel="icon" type="image/x-icon">
-  </head>
-  <body>
+<html>
+<body>
+<a href=${getAuthUrl()}>Sign in with GitHub</a>
+</body>
+</html>`;
 
-    <h1 class="center-text">
-      <!-- ↓ Change "Hello world!" to something else and head on back to Begin! -->
-      Hello world!
-    </h1>
-
-    <p class="center-text">
-      Your <a href="https://begin.com" class="link" target="_blank">Begin</a> app is ready to go!
-    </p>
-
-  </body>
-</html>
-`
-
-exports.handler = async function http(req) {
-  return {
-    headers: {
-      'content-type': 'text/html; charset=utf8',
-      'cache-control': 'no-cache, no-store, must-revalidate, max-age=0, s-maxage=0'
-    },
-    body
+async function http(req) {
+  if (isAuth(req)) {
+    return {
+      location: '/hello',
+    };
   }
+
+  return {
+    html,
+  };
 }
 
-// Example responses
+const handler = arc.http.async(http);
 
-/* Forward requester to a new path
-exports.handler = async function http (req) {
-  return {
-    statusCode: 302,
-    headers: {'location': '/about'}
-  }
-}
-*/
-
-/* Respond with successful resource creation, CORS enabled
-let arc = require('@architect/functions')
-exports.handler = arc.http.async (http)
-async function http (req) {
-  return {
-    statusCode: 201,
-    headers: {'content-type': 'application/json; charset=utf8'},
-    body: JSON.stringify({ok: true}),
-    cors: true,
-  }
-}
-*/
-
-/* Deliver client-side JS
-exports.handler = async function http (req) {
-  return {
-    headers: {'content-type': 'text/javascript; charset=utf8'},
-    body: 'console.log("Hello world!")',
-  }
-}
-*/
+exports.handler = handler;

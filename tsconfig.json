@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": "./lib"
+  },
+  "include": ["./lib/**/*", "./types"],
+  "exclude": ["node_modules", "./lib/http/get-admin/node_modules"]
+}
