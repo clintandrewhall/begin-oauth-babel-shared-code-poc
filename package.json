@@ -42,6 +42,7 @@
     "utf-8-validate": "^5.0.2"
   },
   "dependencies": {
-    "tiny-json-http": "^7.1.2"
+    "tiny-json-http": "^7.1.2",
+    "minimist": ">=1.2.2"
   }
 }

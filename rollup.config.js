@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 
 import babel from 'rollup-plugin-babel';
+import commonjs from 'rollup-plugin-commonjs';
 import copy from 'rollup-plugin-copy';
 import resolve from 'rollup-plugin-node-resolve';
 
@@ -17,9 +18,10 @@ fs.readdirSync(lib).forEach(mod => {
       dir: src,
       format: 'cjs',
     },
-    external: ['@architect/functions', 'tiny-json-http'],
+    external: ['@architect/functions'],
     plugins: [
       resolve({ extensions: ['.js', '.ts'] }),
+      commonjs(),
       babel(),
       copy({
         targets: [
