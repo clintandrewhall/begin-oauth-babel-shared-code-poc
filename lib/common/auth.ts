@@ -25,7 +25,6 @@ export const github = async request => {
     GITHUB_CLIENT_SECRET: client_secret,
     GITHUB_REDIRECT: redirect_uri,
   } = process.env;
-  debugger;
 
   const { code } = request.query;
 
