@@ -1,26 +1,36 @@
 import path from 'path';
 import fs from 'fs';
 
+import autoExternal from 'rollup-plugin-auto-external';
 import babel from 'rollup-plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
 import copy from 'rollup-plugin-copy';
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 
 const lib = path.resolve(__dirname, 'lib/http');
 const configs = [];
 
 fs.readdirSync(lib).forEach(mod => {
+  if (mod.startsWith('.')) {
+    return;
+  }
+
   const lib = `lib/http/${mod}`;
   const src = `src/http/${mod}`;
+
   configs.push({
     input: `${lib}/index.ts`,
     output: {
       dir: src,
       format: 'cjs',
     },
-    external: ['@architect/functions', 'tiny-json-http'],
     plugins: [
+      autoExternal({
+        packagePath: lib,
+      }),
       resolve({ extensions: ['.js', '.ts'] }),
       babel(),
+      commonjs(),
       copy({
         targets: [
           {

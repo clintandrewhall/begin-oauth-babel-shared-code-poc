@@ -14,7 +14,7 @@ export const getAuthUrl = () => {
 export const middleware = req => {
   if (!isAuth(req)) {
     return {
-      location: '/'
+      location: '/',
     };
   }
 };
@@ -23,8 +23,9 @@ export const github = async request => {
   const {
     GITHUB_CLIENT_ID: client_id,
     GITHUB_CLIENT_SECRET: client_secret,
-    GITHUB_REDIRECT: redirect_uri
+    GITHUB_REDIRECT: redirect_uri,
   } = process.env;
+  debugger;
 
   const { code } = request.query;
 
@@ -36,8 +37,8 @@ export const github = async request => {
       code,
       client_id,
       client_secret,
-      redirect_uri
-    }
+      redirect_uri,
+    },
   });
 
   const token = result.body.access_token;
@@ -45,7 +46,7 @@ export const github = async request => {
   // use the access token to get the user account
   const user = await tiny.get({
     url: `https://api.github.com/user?access_token=${token}`,
-    headers: { Accept: 'application/json' }
+    headers: { Accept: 'application/json' },
   });
 
   // create a clean acccount obj
@@ -56,6 +57,6 @@ export const github = async request => {
     login,
     id,
     url,
-    avatar_url
+    avatar_url,
   };
 };

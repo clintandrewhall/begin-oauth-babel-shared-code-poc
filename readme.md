@@ -13,10 +13,6 @@ This is based on @brianleroux's OAuth article and example: https://github.com/be
 ## Some Issues and Caveats
 
 - If a route imports a common file that has an external dependency, the `package.json` within that route needs to include it. I haven't figured out a way to make this smarter, (yet).
-- I usually roll with Webpack, but decided to give Rollup a try. I have to formally declare modules as `externals` to avoid errors. ☹️
-  - `@architect/functions` uses the `static` keyword as a variable name and can't be parsed by `babel` or `commonjs`, so I added it to `externals`.
-  - When I do that, I have to remove the `commonjs` rollup plugin because it doesn't support dynamic requires. 🤷‍♂️
-  - Anyone awesome with rollup who can help me out?
 
 ## Deploy your own
 

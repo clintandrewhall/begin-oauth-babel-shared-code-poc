@@ -7,5 +7,5 @@
     "baseUrl": "./lib"
   },
   "include": ["./lib/**/*", "./types"],
-  "exclude": ["node_modules", "./lib/http/get-admin/node_modules"]
+  "exclude": ["node_modules"]
 }
