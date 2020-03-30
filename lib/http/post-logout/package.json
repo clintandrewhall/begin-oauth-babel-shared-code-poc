@@ -11,6 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< Updated upstream
     "@architect/functions": "^3.7.6"
+=======
+    "@architect/functions": "latest",
+    "core-js": "^3.6.4"
+>>>>>>> Stashed changes
   }
 }
