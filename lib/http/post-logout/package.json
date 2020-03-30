@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@architect/functions": "^3.7.6"
+    "@architect/functions": "latest"
   }
 }
