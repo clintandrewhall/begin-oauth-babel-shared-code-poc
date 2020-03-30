@@ -41,7 +41,6 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
   },
   externals,
-  target: 'node',
   module: {
     rules: [
       {
